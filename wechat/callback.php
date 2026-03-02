@@ -30,14 +30,7 @@ if ($openid === '') {
 }
 
 if ($parsed['type'] === 'register') {
-    $stmt = db()->prepare('SELECT link_token FROM registration_activities WHERE activity_id = :aid LIMIT 1');
-    $stmt->execute([':aid' => $parsed['activity_id']]);
-    $activity = $stmt->fetch();
-    if (!$activity) {
-        exit('活动不存在');
-    }
-
-    $url = '/user/register.php?token=' . urlencode($activity['link_token']) . '&openid=' . urlencode($openid);
+    $url = '/user/register_form.php?activity_id=' . urlencode($parsed['activity_id']) . '&openid=' . urlencode($openid);
     header('Location: ' . $url);
     exit;
 }
